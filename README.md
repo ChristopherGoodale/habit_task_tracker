@@ -29,6 +29,11 @@ behind these choices.
    docker compose up -d
    ```
 
+   This project's Postgres runs on host port **5433** (not the default 5432)
+   so it doesn't collide with a Postgres instance you might already have
+   running locally. Change `POSTGRES_PORT` and `DATABASE_URL` in `.env` if
+   5433 is also taken.
+
 2. **Start the Go server** (reads `.env` values from your shell, or falls
    back to the same defaults as `.env.example`):
 

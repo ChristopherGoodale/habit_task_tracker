@@ -41,6 +41,16 @@ Both are `func(http.Handler) http.Handler` — the same pattern any Go
 middleware library builds on top of — so this project shows that pattern
 directly rather than through a library's abstraction over it.
 
+**Postgres on host port 5433, not 5432.** During verification, the Go
+server's connection to `localhost:5432` was silently hijacked by a
+pre-existing native Postgres Windows service running on this machine
+(different credentials, so it failed with a SASL auth error that looked
+like a Docker Compose misconfiguration but wasn't). Docker's own port
+mapping is not exclusive — if something else already owns the host port,
+connections can land on the wrong server. `docker compose ps` showing
+`healthy` only confirms the *container* is fine, not that nothing else on
+the host is fighting it for the port.
+
 ## Core Concepts
 
 - **`http.ServeMux` pattern routing** (Go 1.22+): patterns can include an

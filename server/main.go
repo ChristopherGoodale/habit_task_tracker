@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	databaseURL := envOrDefault("DATABASE_URL", "postgres://habit_tracker:habit_tracker@localhost:5432/habit_tracker?sslmode=disable")
+	databaseURL := envOrDefault("DATABASE_URL", "postgres://habit_tracker:habit_tracker@localhost:5433/habit_tracker?sslmode=disable")
 	port := envOrDefault("PORT", "8080")
 	clientOrigin := envOrDefault("CLIENT_ORIGIN", "http://localhost:5173")
 

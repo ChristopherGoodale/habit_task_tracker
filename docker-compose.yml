@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-habit_tracker}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-habit_tracker}
+      POSTGRES_DB: ${POSTGRES_DB:-habit_tracker}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - habit_tracker_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-habit_tracker}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  habit_tracker_pgdata:
